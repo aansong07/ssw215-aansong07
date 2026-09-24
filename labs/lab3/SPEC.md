@@ -14,6 +14,9 @@ this bio: "<I like to watch movies and listen to music. I also recently started 
 - Action link: a button labelled "See my projects" that links to `#projects`.
 - Projects section with id="projects": lists these items: <I have made a blackjack simulator in java. I want to make a gym workout planner, and something related to music.>.
 - Social link: GitHub (https://github.com/aansong07) MUST open in a new tab
+- The page background MUST be dark navy (#1b2a41) with white text.
+- Headings SHOULD use a serif font such as Georgia.
+- The "See my projects" button MUST have rounded corners and a green background.
 (target="_blank").
 ## 4. Acceptance Checklist
 - [x] Valid semantic HTML5: the page uses <header>, <main>, and <footer>.
