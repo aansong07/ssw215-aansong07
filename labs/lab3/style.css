@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+}
+
+h2 {
+    margin: 10px 0;
+}
+
+.bio {
+    margin: 20px 0;
+}
+
+button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #005f73;
+}
+
+#projects {
+    padding: 20px;
+}
+
+.project-item {
+    margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+    }
+}
