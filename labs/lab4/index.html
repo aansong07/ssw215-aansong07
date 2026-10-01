@@ -20,15 +20,19 @@
                 <h1>Akosua Ansong</h1>
                 <h2>I live in Hillside NJ</h2>
                 <p>I like to watch movies and listen to music. I also recently started going to the gym.</p>
-                <a href="#projects" class="button">See my projects</a>
+
+                <div class="button-row">
+                    <a href="#projects" class="button">See my projects</a>
+                    <button type="button" class="secondary-button" disabled>Contact me (coming soon)</button>
+                </div>
             </div>
         </div>
     </header>
 
     <main>
-        <section class="projects-section" aria-labelledby="projects-heading">
+        <section class="projects-section" id="projects" aria-labelledby="projects-heading">
             <h2 id="projects-heading">Projects</h2>
-            <div class="projects-grid" id="projects">
+            <div class="projects-grid">
                 <article class="card">
                     <h3>Java projects</h3>
                     <p>I have made a blackjack simulator in Java.</p>
@@ -39,7 +43,7 @@
                     <p>I want to make a gym workout planner.</p>
                 </article>
 
-                <article class="card featured"><!-- hand edited by AA -->
+                <article class="card">
                     <h3>Creative ideas</h3>
                     <p>I want to make something related to music.</p>
                 </article>

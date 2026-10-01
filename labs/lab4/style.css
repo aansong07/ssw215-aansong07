@@ -6,8 +6,11 @@
     --white: #ffffff;
     --green: #3ca45c;
     --green-dark: #2f8449;
+    --green-light: #46d76b;
+    --muted-gray: #8f9bb0;
     --panel: rgba(255, 255, 255, 0.06);
     --border: rgba(255, 255, 255, 0.25);
+    --shadow: rgba(0, 0, 0, 0.2);
 }
 
 html {
@@ -30,6 +33,10 @@ img {
 
 a {
     color: var(--white);
+}
+
+button {
+    font: inherit;
 }
 
 .site-header,
@@ -105,22 +112,71 @@ p {
     margin-bottom: 1.5rem;
 }
 
-.button {
-    background-color: var(--green);
-    border: 0.0625rem solid var(--green);
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.button,
+.secondary-button {
     border-radius: 999px;
-    color: var(--white);
     display: inline-block;
     font-size: 1rem;
     font-weight: 700;
     padding: 0.75rem 1.25rem;
+    text-align: center;
     text-decoration: none;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-.button:hover,
-.button:focus {
+.button {
+    background-color: var(--green);
+    border: 0.0625rem solid var(--green);
+    color: var(--white);
+}
+
+.button:hover {
+    background-color: var(--green-light);
+    box-shadow: 0 0.25rem 0.75rem var(--shadow);
+    transform: translateY(-0.0625rem);
+}
+
+.button:focus-visible {
+    outline: 0.1875rem solid var(--white);
+    outline-offset: 0.1875rem;
     background-color: var(--green-dark);
+}
+
+.button:active {
+    background-color: #2b7a42;
+    box-shadow: inset 0 0.125rem 0.5rem rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+}
+
+.button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.secondary-button {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 0.0625rem solid var(--muted-gray);
+    color: var(--muted-gray);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.secondary-button:disabled,
+.secondary-button:disabled:hover,
+.secondary-button:disabled:focus-visible,
+.secondary-button:disabled:active {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--muted-gray);
+    color: var(--muted-gray);
+    box-shadow: none;
+    transform: none;
+    cursor: not-allowed;
 }
 
 .projects-section {
@@ -131,15 +187,11 @@ p {
 .projects-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 3rem; /* hand-edited by AA */
+    gap: 1.5rem;
     margin-top: 1.25rem;
 }
 
 .card {
-    /* hand-edited by AA */
-    .featured {
-        background-color: #2fbff7;
-    }
     background-color: var(--panel);
     border: 0.0625rem solid var(--border);
     border-radius: 1rem;
@@ -170,12 +222,16 @@ p {
         text-align: center;
     }
 
-    .projects-grid {
+    .button-row {
         flex-direction: column;
     }
 
-    .button {
-        display: block;
+    .button,
+    .secondary-button {
         width: 100%;
+    }
+
+    .projects-grid {
+        flex-direction: column;
     }
 }
