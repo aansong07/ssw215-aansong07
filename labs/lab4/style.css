@@ -131,11 +131,15 @@ p {
 .projects-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 3rem; /* hand-edited by AA */
     margin-top: 1.25rem;
 }
 
 .card {
+    /* hand-edited by AA */
+    .featured {
+        background-color: #2fbff7;
+    }
     background-color: var(--panel);
     border: 0.0625rem solid var(--border);
     border-radius: 1rem;
