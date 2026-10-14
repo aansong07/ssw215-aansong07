@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akosua Ansong | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./app.js" defer></script>
 </head>
 <body>
     <header class="site-header">
@@ -13,11 +14,11 @@
             <a href="https://github.com/aansong07" target="_blank" rel="noopener noreferrer">GitHub</a>
         </nav>
 
-        <div class="hero">
-            <img src="./assets/avatar.jpg" class="avatar" alt="Portrait of Akosua Ansong">
+        <section class="hero" aria-labelledby="welcome-heading">
+            <img class="avatar" src="./assets/avatar.jpg" alt="Portrait of Akosua Ansong">
 
             <div class="hero-copy">
-                <h1>Akosua Ansong</h1>
+                <h1 id="welcome-heading">Akosua Ansong</h1>
                 <h2>I live in Hillside NJ</h2>
                 <p>I like to watch movies and listen to music. I also recently started going to the gym.</p>
 
@@ -26,24 +27,27 @@
                     <button type="button" class="secondary-button" disabled>Contact me (coming soon)</button>
                 </div>
             </div>
-        </div>
+        </section>
     </header>
 
     <main>
         <section class="projects-section" id="projects" aria-labelledby="projects-heading">
             <h2 id="projects-heading">Projects</h2>
+            <label class="filter-label" for="filter-input">Filter projects</label>
+            <input class="filter-input" id="filter-input" type="search" autocomplete="off">
+            <p class="project-count" id="project-count" aria-live="polite"></p>
             <div class="projects-grid">
                 <article class="card">
                     <h3>Java projects</h3>
-                    <p>I have made a blackjack simulator in Java.</p>
+                    <p>I have made a blackjack simulator in java.</p>
                 </article>
 
                 <article class="card">
                     <h3>Future goals</h3>
-                    <p>I want to make a gym workout planner.</p>
+                    <p>I want to make a gym workout planner</p>
                 </article>
 
-                <article class="card featured">
+                <article class="card">
                     <h3>Creative ideas</h3>
                     <p>I want to make something related to music.</p>
                 </article>
@@ -52,7 +56,10 @@
     </main>
 
     <footer class="site-footer">
-        <p><a href="https://github.com/aansong07" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+        <section aria-labelledby="social-heading">
+            <h2 id="social-heading">Connect</h2>
+            <p><a href="https://github.com/aansong07" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+        </section>
     </footer>
 </body>
 </html>

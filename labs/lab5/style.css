@@ -23,7 +23,6 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     min-height: 100vh;
-    overflow-x: hidden;
     padding: 0;
 }
 
@@ -134,6 +133,7 @@ p {
     background-color: var(--green);
     border: 0.0625rem solid var(--green);
     color: var(--white);
+    cursor: pointer;
 }
 
 .button:hover {
@@ -157,6 +157,15 @@ p {
 .button:disabled {
     cursor: not-allowed;
     opacity: 0.6;
+}
+
+.button:disabled:hover,
+.button:disabled:focus-visible,
+.button:disabled:active {
+    background-color: var(--green);
+    box-shadow: none;
+    outline: none;
+    transform: none;
 }
 
 .secondary-button {
@@ -184,6 +193,31 @@ p {
     padding-top: 1.5rem;
 }
 
+.filter-label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.filter-input {
+    background-color: var(--panel);
+    border: 0.0625rem solid var(--border);
+    border-radius: 0.375rem;
+    color: var(--white);
+    font: inherit;
+    max-width: 100%;
+    padding: 0.625rem 0.75rem;
+    width: 24rem;
+}
+
+.filter-input:focus-visible {
+    outline: 0.1875rem solid var(--white);
+    outline-offset: 0.125rem;
+}
+
+.project-count {
+    margin-top: 0.75rem;
+}
+
 .projects-grid {
     display: flex;
     flex-wrap: wrap;
@@ -192,10 +226,6 @@ p {
 }
 
 .card {
-    /*hand-edited by AB*/
-    .featured {
-        background-color: #5ad2fa;
-    }
     background-color: var(--panel);
     border: 0.0625rem solid var(--border);
     border-radius: 1rem;
@@ -203,12 +233,16 @@ p {
     padding: 1.25rem;
 }
 
+.hidden {
+    display: none;
+}
+
 .site-footer {
     padding-top: 1rem;
     text-align: center;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 47.9375rem) {
     .site-header,
     main,
     .site-footer {
