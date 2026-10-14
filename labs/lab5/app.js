@@ -7,8 +7,9 @@ function updateProjects() {
     let visibleCount = 0;
 
     projectCards.forEach((card) => {
-        const matches = card.textContent.toLocaleLowerCase().includes(query);
-        card.classList.toggle("hidden", !matches);
+        //hand-edited by AB//
+        const matches = card.textContent.toLowerCase().includes(query);
+        card.classList.toggle("is.hidden", !matches);
         if (matches) {
             visibleCount += 1;
         }
