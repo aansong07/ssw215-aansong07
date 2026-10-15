@@ -192,6 +192,10 @@ p {
 }
 
 .card {
+    /*hand-edited by AB*/
+    .featured {
+        background-color: #5ad2fa;
+    }
     background-color: var(--panel);
     border: 0.0625rem solid var(--border);
     border-radius: 1rem;
