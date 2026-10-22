@@ -27,7 +27,7 @@ projects_db = [
 
 @app.route("/")
 def index():
-    return render_template("index.html", projects=projects_db)
+    return render_template("index.html", projects_db=projects_db)
 
 
 if __name__ == "__main__":

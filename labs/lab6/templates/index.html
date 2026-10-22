@@ -7,20 +7,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </head>
-<body>
+<body class="portfolio-page">
     <header class="site-header">
         <nav class="top-nav" aria-label="Main navigation">
-            <a href="#projects">Projects</a>
-            <a href="https://github.com/aansong07" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="nav-link" href="#projects">Projects</a>
+            <a class="nav-link" href="https://github.com/aansong07" target="_blank" rel="noopener noreferrer">GitHub</a>
         </nav>
 
         <section class="hero" aria-labelledby="welcome-heading">
             <img class="avatar" src="./assets/avatar.jpg" alt="Portrait of Akosua Ansong">
 
             <div class="hero-copy">
-                <h1 id="welcome-heading">Akosua Ansong</h1>
-                <h2>I live in Hillside NJ</h2>
-                <p>I like to watch movies and listen to music. I also recently started going to the gym.</p>
+                <h1 class="hero-title" id="welcome-heading">Akosua Ansong</h1>
+                <h2 class="hero-subtitle">I live in Hillside NJ</h2>
+                <p class="hero-bio">I like to watch movies and listen to music. I also recently started going to the gym.</p>
 
                 <div class="button-row">
                     <a href="#projects" class="button">See my projects</a>
@@ -30,17 +30,17 @@
         </section>
     </header>
 
-    <main>
+    <main class="main-content">
         <section class="projects-section" id="projects" aria-labelledby="projects-heading">
-            <h2 id="projects-heading">Projects</h2>
+            <h2 class="section-title" id="projects-heading">Projects</h2>
             <label class="filter-label" for="filter-input">Filter projects</label>
             <input class="filter-input" id="filter-input" type="search" autocomplete="off">
-            <p class="project-count" id="project-count" aria-live="polite">Showing {{ projects|length }} of {{ projects|length }} projects</p>
+            <p class="project-count" id="project-count" aria-live="polite">Showing {{ projects_db|length }} of {{ projects_db|length }} projects</p>
             <div class="projects-grid">
-                {% for project in projects %}
+                {% for project in projects_db %}
                 <article class="card" data-project-id="{{ project.id }}">
-                    <h3>{{ project.title }}</h3>
-                    <p>{{ project.description }}</p>
+                    <h3 class="card-title">{{ project.title }}</h3>
+                    <p class="card-description">{{ project.description }}</p>
                 </article>
                 {% endfor %}
             </div>
@@ -49,8 +49,8 @@
 
     <footer class="site-footer">
         <section aria-labelledby="social-heading">
-            <h2 id="social-heading">Connect</h2>
-            <p><a href="https://github.com/aansong07" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+            <h2 class="footer-title" id="social-heading">Connect</h2>
+            <p class="footer-copy"><a class="footer-link" href="https://github.com/aansong07" target="_blank" rel="noopener noreferrer">GitHub</a></p>
         </section>
     </footer>
 </body>
