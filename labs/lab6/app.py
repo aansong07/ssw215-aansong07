@@ -22,6 +22,13 @@ projects_db = [
         "description": "I want to make something related to music.",
         "likes": 0,
     },
+    {
+        # hand-edited by AA
+        "id": 4,
+        "title": "Web development",
+        "description": "I want to build a responsive website.",
+        "likes": 0,
+    },
 ]
 
 
