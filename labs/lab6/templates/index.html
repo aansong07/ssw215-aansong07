@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akosua Ansong | Portfolio</title>
-    <link rel="stylesheet" href="./style.css">
-    <script src="./app.js" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </head>
 <body>
     <header class="site-header">
@@ -35,22 +35,14 @@
             <h2 id="projects-heading">Projects</h2>
             <label class="filter-label" for="filter-input">Filter projects</label>
             <input class="filter-input" id="filter-input" type="search" autocomplete="off">
-            <p class="project-count" id="project-count" aria-live="polite"></p>
+            <p class="project-count" id="project-count" aria-live="polite">Showing {{ projects|length }} of {{ projects|length }} projects</p>
             <div class="projects-grid">
-                <article class="card">
-                    <h3>Java projects</h3>
-                    <p>I have made a blackjack simulator in java.</p>
+                {% for project in projects %}
+                <article class="card" data-project-id="{{ project.id }}">
+                    <h3>{{ project.title }}</h3>
+                    <p>{{ project.description }}</p>
                 </article>
-
-                <article class="card">
-                    <h3>Future goals</h3>
-                    <p>I want to make a gym workout planner</p>
-                </article>
-
-                <article class="card">
-                    <h3>Creative ideas</h3>
-                    <p>I want to make something related to music.</p>
-                </article>
+                {% endfor %}
             </div>
         </section>
     </main>
