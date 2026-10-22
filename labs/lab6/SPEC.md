@@ -26,6 +26,10 @@ plain relative path.
 never processed by Flask.
 - app.py MUST create the application with app = Flask(__name__), and MUST end with a
 block that runs it with debug=True when the file is executed directly.
+- The upvote route MUST accept POST only, and MUST declare its id parameter as
+<int:project_id>.
+- The upvote route MUST return jsonify(...), never render_template.
+- app.js MUST check response.ok before reading the response body.
 ## 3. UI Content & Interface Contract
 - Hero header: my full name "<Akosua Ansong>", the subtitle "<I live in Hillside NJ>", and
 this bio: "<I like to watch movies and listen to music. I also recently started going to the gym.>".
@@ -64,6 +68,10 @@ and likes (an integer).
 projects_db.
 - The rendered cards MUST keep the same classes they had in Lab 5, so that the existing
 filter in app.js keeps working with no changes to app.js.
+- Each card MUST contain a button with class "upvote-btn" reading "Upvote", and an
+element with class "like-count" showing that project's likes.
+- Clicking Upvote MUST send a POST to /api/projects/<id>/upvote and update only the
+number on that card, with no page reload.
 
 ## 4. Acceptance Checklist
 - [ ] Running app.py starts a server, and the page loads at http://127.0.0.1:5000/.
@@ -75,5 +83,10 @@ hardcoded card.
 work.
 - [ ] The page is styled — style.css and app.js both loaded.
 - [ ] The DevTools Console shows no red errors.
+- [ ] Clicking Upvote raises the number on that card, and only that card, with no page
+reload.
+- [ ] The Network tab shows the request returning JSON, not HTML.
+- [ ] A project with more than 10 likes shows a Trending badge after the page is
+reloaded.
 ## 5. Audit Protocol
 - Inspect the generated code line by line with `git diff --staged` before committing.
