@@ -40,7 +40,16 @@
                 {% for project in projects %}
                 <article class="card" data-project-id="{{ project.id }}">
                     <h3>{{ project.title }}</h3>
+                    {% if project.likes > 10 %}
+                    <p class="trending-badge">Trending</p>
+                    {% endif %}
+                    <!-- hand-edited by AA -->
+                    {% if project.likes > 10 %}
+                        <span class="trending-badge">Trending</span>
+                    {% endif %}
                     <p>{{ project.description }}</p>
+                    <p>Likes: <span class="like-count">{{ project.likes }}</span></p>
+                    <button class="upvote-btn button" type="button">Upvote</button>
                 </article>
                 {% endfor %}
             </div>
