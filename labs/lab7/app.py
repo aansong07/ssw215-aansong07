@@ -9,7 +9,7 @@ PROJECTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "projec
 
 
 def load_projects():
-    with open(PROJECTS_FILE, encoding="utf-8") as projects_file:
+    with open(PROJECTS_FILE, "r", encoding="utf-8") as projects_file:
         return json.load(projects_file)
 
 
