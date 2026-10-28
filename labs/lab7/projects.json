@@ -22,5 +22,17 @@
     "title": "Recipe Book",
     "description": "I want to make a recipe book app.",
     "likes": 0
+  },
+  {
+    "id": 5,
+    "title": "Blackjack Simulator",
+    "description": "",
+    "likes": 0
+  },
+  {
+    "id": 6,
+    "title": "Test Project 123",
+    "description": "",
+    "likes": 0
   }
 ]
