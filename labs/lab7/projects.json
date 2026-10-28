@@ -1,27 +1,26 @@
 [
-    {
-        "id": 1,
-        "title": "Java projects",
-        "description": "I have made a blackjack simulator in java.",
-        "likes": 0
-    },
-    {
-        "id": 2,
-        "title": "Tomato Soup",
-        "description": "I want to make a gym workout planner.",
-        "likes": 0
-    },
-    {
-        "id": 3,
-        "title": "Creative ideas",
-        "description": "I want to make something related to music.",
-        "likes": 0
-    },
-    {
-        
-        "id": 4,
-        "title": "Recipe Book",
-        "description": "I want to make a recipe book app.",
-        "likes": 0
-    }
+{
+"id": 1,
+"title": "Java projects",
+"description": "I have made a blackjack simulator in java.",
+"likes": 0
+},
+{
+"id": 2,
+"title": "Tomato Soup",
+"description": "I want to make a gym workout planner.",
+"likes": 0
+},
+{
+"id": 3,
+"title": "Creative ideas",
+"description": "I want to make something related to music.",
+"likes": 0
+},
+{
+"id": 4,
+"title": "Recipe Book",
+"description": "I want to make a recipe book app.",
+"likes": 0
+}
 ]
