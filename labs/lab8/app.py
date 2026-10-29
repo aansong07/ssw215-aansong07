@@ -59,14 +59,14 @@ def init_seed_data():
 
 @app.route("/")
 def index():
-    projects = Project.query.order_by(Project.id).all()
-    return render_template("index.html", projects=projects)
+    projects_db = [project.to_dict() for project in Project.query.all()]
+    return render_template("index.html", projects=projects_db)
 
 
 @app.route("/api/projects")
 def get_projects():
-    projects = Project.query.order_by(Project.id).all()
-    return jsonify([project.to_dict() for project in projects]), 200
+    projects_db = [project.to_dict() for project in Project.query.all()]
+    return jsonify(projects_db), 200
 
 
 @app.route("/api/projects/<int:project_id>/upvote", methods=["POST"])
