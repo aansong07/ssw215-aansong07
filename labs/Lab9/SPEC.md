@@ -148,27 +148,27 @@ request is sent to the provider.
 reached, the route MUST return 503.
 
 ## 4. Acceptance Checklist
-- [ ] Starting the server creates instance/portfolio.db, and the page shows the projects
+- [x] Starting the server creates instance/portfolio.db, and the page shows the projects
 that were in projects_seed.json.
-- [ ] Restarting the server does not duplicate any project.
-- [ ] Opening http://127.0.0.1:5000/api/projects in the browser shows the projects as
+- [x] Restarting the server does not duplicate any project.
+- [x] Opening http://127.0.0.1:5000/api/projects in the browser shows the projects as
 JSON.
-- [ ] Upvoting changes the count, and the new count is still there after a restart.
-- [ ] Adding a project whose title already exists does not create a second copy, and the
+- [x] Upvoting changes the count, and the new count is still there after a restart.
+- [x] Adding a project whose title already exists does not create a second copy, and the
 server does not crash.
-- [ ] instance/ and *.db are ignored by Git and do not appear in git status.
-- [ ] instance/portfolio.db contains two tables.
-- [ ] Deleting instance/portfolio.db and restarting rebuilds both tables with the seed
+- [x] instance/ and *.db are ignored by Git and do not appear in git status.
+- [x] instance/portfolio.db contains two tables.
+- [x] Deleting instance/portfolio.db and restarting rebuilds both tables with the seed
 data.
-- [ ] author's name is visible on the webpage after reloading it <!-- written by AA-->
-- [ ] The API response inluces the author's name when it is check after reloading the webpage <!-- wirtten by AA-->
-- [ ] .env is ignored by Git and never appears in git status.
-- [ ] Pasting a paragraph of notes and pressing Smart create adds a project with a title,
+- [x] author's name is visible on the webpage after reloading it <!-- written by AA-->
+- [x] The API response inluces the author's name when it is check after reloading the webpage <!-- wirtten by AA-->
+- [x] .env is ignored by Git and never appears in git status.
+- [x] Pasting a paragraph of notes and pressing Smart create adds a project with a title,
 a summary and a technologies list.
-- [ ] /api/projects shows the new project with all three fields filled in.
-- [ ] Notes shorter than 20 characters come back as 400, and nothing is sent to the
+- [x] /api/projects shows the new project with all three fields filled in.
+- [x] Notes shorter than 20 characters come back as 400, and nothing is sent to the
 provider.
-- [ ] Deleting instance/portfolio.db and restarting rebuilds the table with the new
+- [x] Deleting instance/portfolio.db and restarting rebuilds the table with the new
 columns.
 ## 5. Audit Protocol
 - Inspect the generated code line by line with `git diff --staged` before committing.
