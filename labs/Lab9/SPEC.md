@@ -62,6 +62,16 @@ table, and MUST NOT allow a project without an author.
 - Author MUST declare a db.relationship to Project with backref="author", so that a
 project can reach its author as project.author.
 - init_seed_data() MUST create one author and attach every seeded project to it.
+- The API key MUST be read from the environment with os.getenv("OPENAI_API_KEY"). It MUST
+NOT appear in any file that Git tracks.
+- All contact with the AI provider MUST live in a new file, ai_service.py, beside app.py.
+app.py MUST NOT import the openai package.
+- The OpenAI client MUST be created once, when ai_service.py is first imported, and
+reused — not created inside a route or on every request.
+- The extraction MUST use a Pydantic model as the response format, so that the provider
+enforces the shape of the answer. The code MUST NOT inspect the model's reply with
+split(), a regular expression, or json.loads().
+- The request MUST use temperature 0.1 or lower.
 ## 3. UI Content & Interface Contract
 - Hero header: my full name "<Akosua Ansong>", the subtitle "<I live in Hillside NJ>", and
 this bio: "<I like to watch movies and listen to music. I also recently started going to the gym.>".
@@ -124,6 +134,18 @@ writing to the database instead of to a file.
 - A project created with the Add project form MUST be attached to the same seeded author.
 - The authors NAME must be visble on the webpage. <!-- written by AA -->
 - The API MUST include the authors name. <!-- written by AA -->
+- Above the existing Add project form there MUST be a <textarea> with id="smart-notes"
+and a button labelled "Smart create".
+- POST /api/projects/smart MUST accept a JSON body containing a "notes" key.
+- The extraction MUST produce three fields: title, a short string; summary, one or two
+sentences; and technologies, a list of strings.
+- The new project MUST be stored in the same projects table as Lab 8, with the
+technologies joined into a single text column.
+- Notes shorter than 20 characters MUST be rejected with status code 400 before any
+request is sent to the provider.
+- A successful smart create MUST return the new project as JSON with status code 201.
+- If the model refuses the request, the route MUST return 422. If the provider cannot be
+reached, the route MUST return 503.
 
 ## 4. Acceptance Checklist
 - [ ] Starting the server creates instance/portfolio.db, and the page shows the projects
@@ -140,5 +162,13 @@ server does not crash.
 data.
 - [ ] author's name is visible on the webpage after reloading it <!-- written by AA-->
 - [ ] The API response inluces the author's name when it is check after reloading the webpage <!-- wirtten by AA-->
+- [ ] .env is ignored by Git and never appears in git status.
+- [ ] Pasting a paragraph of notes and pressing Smart create adds a project with a title,
+a summary and a technologies list.
+- [ ] /api/projects shows the new project with all three fields filled in.
+- [ ] Notes shorter than 20 characters come back as 400, and nothing is sent to the
+provider.
+- [ ] Deleting instance/portfolio.db and restarting rebuilds the table with the new
+columns.
 ## 5. Audit Protocol
 - Inspect the generated code line by line with `git diff --staged` before committing.
