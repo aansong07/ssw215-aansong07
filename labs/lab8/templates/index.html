@@ -48,6 +48,7 @@
                 {% for project in projects %}
                 <article class="card" data-project-id="{{ project.id }}">
                     <h3>{{ project.title }}</h3>
+                    <p>Author: {{ project.author_name }}</p>
                     {% if project.likes > 10 %}
                     <span class="trending-badge">Trending</span>
                     {% endif %}

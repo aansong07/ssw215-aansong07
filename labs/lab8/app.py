@@ -14,11 +14,18 @@ os.makedirs(app.instance_path, exist_ok=True)
 db = SQLAlchemy(app)
 
 
+class Author(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    projects = db.relationship("Project", backref="author")
+
+
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False, unique=True)
     description = db.Column(db.Text, nullable=False, default="")
     likes = db.Column(db.Integer, nullable=False, default=0)
+    author_id = db.Column(db.Integer, db.ForeignKey("author.id"), nullable=False)
 
     def to_dict(self):
         return {
@@ -26,6 +33,8 @@ class Project(db.Model):
             "title": self.title,
             "description": self.description,
             "likes": self.likes,
+            "author_id": self.author_id,
+            "author_name": self.author.name,
         }
 
 
@@ -40,6 +49,8 @@ def init_seed_data():
     with open(seed_file, "r", encoding="utf-8") as projects_file:
         projects = json.load(projects_file)
 
+    author = Author(name="Akosua Ansong")
+    db.session.add(author)
     for project in projects:
         db.session.add(
             Project(
@@ -47,6 +58,7 @@ def init_seed_data():
                 title=project["title"],
                 description=project["description"],
                 likes=project["likes"],
+                author=author,
             )
         )
 
@@ -99,7 +111,11 @@ def create_project():
     if len(title) > 120:
         return jsonify({"error": "Project titles must be 120 characters or fewer"}), 400
 
-    project = Project(title=title, description="", likes=0)
+    author = Author.query.first()
+    if author is None:
+        return jsonify({"error": "Unable to create project"}), 400
+
+    project = Project(title=title, description="", likes=0, author=author)
     db.session.add(project)
     try:
         db.session.commit()
