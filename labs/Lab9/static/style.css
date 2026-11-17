@@ -214,6 +214,25 @@ p {
     outline-offset: 0.125rem;
 }
 
+.smart-project-form {
+    display: block;
+    margin: 1.25rem 0;
+}
+
+.notes-input {
+    background-color: var(--panel);
+    border: 0.0625rem solid var(--border);
+    border-radius: 0.375rem;
+    color: var(--white);
+    display: block;
+    font: inherit;
+    margin-bottom: 0.75rem;
+    max-width: 100%;
+    padding: 0.625rem 0.75rem;
+    resize: vertical;
+    width: 24rem;
+}
+
 .project-count {
     margin-top: 0.75rem;
 }

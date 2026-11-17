@@ -4,6 +4,9 @@ const projectsGrid = document.querySelector(".projects-grid");
 const newProjectForm = document.querySelector("#new-project-form");
 const newTitleInput = document.querySelector("#new-title");
 const createProjectMessage = document.querySelector("#create-project-message");
+const smartProjectForm = document.querySelector("#smart-project-form");
+const smartNotesInput = document.querySelector("#smart-notes");
+const smartProjectMessage = document.querySelector("#smart-project-message");
 
 function updateProjects() {
     const query = filterInput.value.trim().toLowerCase();
@@ -52,9 +55,19 @@ function createProjectCard(project) {
         card.append(badge);
     }
 
+    const author = document.createElement("p");
+    author.textContent = `Author: ${project.author_name}`;
+    card.append(author);
+
     const description = document.createElement("p");
-    description.textContent = project.description;
+    description.textContent = project.summary || project.description;
     card.append(description);
+
+    if (Array.isArray(project.technologies) && project.technologies.length > 0) {
+        const technologies = document.createElement("p");
+        technologies.textContent = `Technologies: ${project.technologies.join(", ")}`;
+        card.append(technologies);
+    }
 
     const likeLine = document.createElement("p");
     likeLine.append("Likes: ");
@@ -131,5 +144,43 @@ newProjectForm.addEventListener("submit", async (event) => {
     } catch (error) {
         createProjectMessage.textContent = "Unable to add project. Please try again.";
         console.error("Unable to create project:", error);
+    }
+});
+
+smartProjectForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    smartProjectMessage.textContent = "";
+
+    if (smartNotesInput.value.trim().length < 20) {
+        smartProjectMessage.textContent = "Please enter at least 20 characters of notes.";
+        return;
+    }
+
+    const smartButton = smartProjectForm.querySelector("button");
+    smartButton.disabled = true;
+    try {
+        const response = await fetch("/api/projects/smart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ notes: smartNotesInput.value }),
+        });
+        if (!response.ok) {
+            const result = await response.json();
+            smartProjectMessage.textContent = result.error || "Unable to create project.";
+            return;
+        }
+
+        const project = await response.json();
+        projectsGrid.append(createProjectCard(project));
+        smartNotesInput.value = "";
+        smartProjectMessage.textContent = "Project created.";
+        updateProjects();
+    } catch (error) {
+        smartProjectMessage.textContent = "Unable to create project. Please try again.";
+        console.error("Unable to smart create project:", error);
+    } finally {
+        smartButton.disabled = false;
     }
 });
