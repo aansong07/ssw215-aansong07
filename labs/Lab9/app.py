@@ -1,9 +1,19 @@
 import json
 import os
+import sqlite3
 
 from flask import Flask, jsonify, render_template, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
 from sqlalchemy.exc import SQLAlchemyError
+
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
+
+from ai_service import (
+    ProviderRefusalError,
+    ProviderUnavailableError,
+    extract_project,
+)
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///portfolio.db"
@@ -24,6 +34,8 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False, unique=True)
     description = db.Column(db.Text, nullable=False, default="")
+    summary = db.Column(db.Text, nullable=False, default="")
+    technologies = db.Column(db.Text, nullable=False, default="")
     likes = db.Column(db.Integer, nullable=False, default=0)
     author_id = db.Column(db.Integer, db.ForeignKey("author.id"), nullable=False)
 
@@ -32,6 +44,12 @@ class Project(db.Model):
             "id": self.id,
             "title": self.title,
             "description": self.description,
+            "summary": self.summary,
+            "technologies": [
+                technology.strip()
+                for technology in self.technologies.split(",")
+                if technology.strip()
+            ],
             "likes": self.likes,
             "author_id": self.author_id,
             "author_name": self.author.name,
@@ -57,6 +75,8 @@ def init_seed_data():
                 id=project["id"],
                 title=project["title"],
                 description=project["description"],
+                summary=project["description"],
+                technologies="",
                 likes=project["likes"],
                 author=author,
             )
@@ -67,6 +87,31 @@ def init_seed_data():
     except SQLAlchemyError:
         db.session.rollback()
         raise
+
+
+def ensure_project_columns():
+    database_path = os.path.join(app.instance_path, "portfolio.db")
+    connection = sqlite3.connect(database_path)
+    try:
+        columns = {
+            row[1]
+            for row in connection.execute("PRAGMA table_info(project)")
+        }
+        if "summary" not in columns:
+            connection.execute(
+                "ALTER TABLE project ADD COLUMN summary TEXT NOT NULL DEFAULT ''"
+            )
+        if "technologies" not in columns:
+            connection.execute(
+                "ALTER TABLE project ADD COLUMN technologies TEXT NOT NULL DEFAULT ''"
+            )
+        connection.execute(
+            "UPDATE project SET summary = description "
+            "WHERE summary = '' OR summary IS NULL"
+        )
+        connection.commit()
+    finally:
+        connection.close()
 
 
 @app.route("/")
@@ -126,6 +171,50 @@ def create_project():
     return jsonify(project.to_dict()), 201
 
 
+@app.route("/api/projects/smart", methods=["POST"])
+def smart_create_project():
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"error": "Notes are required"}), 400
+
+    notes = data.get("notes")
+    if not isinstance(notes, str) or len(notes.strip()) < 20:
+        return jsonify({"error": "Notes must be at least 20 characters"}), 400
+
+    try:
+        extracted = extract_project(notes.strip())
+    except ProviderRefusalError as error:
+        return jsonify({"error": str(error)}), 422
+    except ProviderUnavailableError as error:
+        return jsonify({"error": str(error)}), 503
+
+    title = extracted.title.strip()
+    summary = extracted.summary.strip()
+    if not title or len(title) > 120:
+        return jsonify({"error": "The provider returned an invalid title"}), 422
+
+    author = Author.query.first()
+    if author is None:
+        return jsonify({"error": "Unable to create project"}), 400
+
+    project = Project(
+        title=title,
+        description=summary,
+        summary=summary,
+        technologies=", ".join(extracted.technologies),
+        likes=0,
+        author=author,
+    )
+    db.session.add(project)
+    try:
+        db.session.commit()
+    except SQLAlchemyError:
+        db.session.rollback()
+        return jsonify({"error": "Unable to create project"}), 400
+
+    return jsonify(project.to_dict()), 201
+
+
 @app.route("/assets/avatar.jpg")
 def avatar():
     return send_from_directory("assets", "avatar.jpg")
@@ -133,6 +222,7 @@ def avatar():
 
 with app.app_context():
     db.create_all()
+    ensure_project_columns()
     init_seed_data()
 
 

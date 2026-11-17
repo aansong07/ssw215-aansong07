@@ -37,6 +37,13 @@
             <input class="filter-input" id="filter-input" type="search" autocomplete="off">
             <p class="project-count" id="project-count" aria-live="polite">Showing {{ projects|length }} of {{ projects|length }} projects</p>
 
+            <form class="smart-project-form" id="smart-project-form">
+                <label class="filter-label" for="smart-notes">Project notes</label>
+                <textarea class="notes-input" id="smart-notes" rows="4"></textarea>
+                <button class="button" type="submit">Smart create</button>
+            </form>
+            <p id="smart-project-message" aria-live="polite"></p>
+
             <form class="button-row" id="new-project-form">
                 <label class="filter-label" for="new-title">New project title</label>
                 <input class="filter-input" id="new-title" type="text" autocomplete="off">
@@ -52,7 +59,10 @@
                     {% if project.likes > 10 %}
                     <span class="trending-badge">Trending</span>
                     {% endif %}
-                    <p>{{ project.description }}</p>
+                    <p class="project-summary">{{ project.summary or project.description }}</p>
+                    {% if project.technologies %}
+                    <p>Technologies: {{ project.technologies|join(", ") }}</p>
+                    {% endif %}
                     <p>Likes: <span class="like-count">{{ project.likes }}</span></p>
                     <button class="upvote-btn button" type="button">Upvote</button>
                 </article>
