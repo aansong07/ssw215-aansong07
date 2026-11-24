@@ -108,6 +108,17 @@ def refine_github_session(session_id, feedback):
     return draft.model_dump()
 
 
+def refine_github_session_blind(session_id, feedback):
+    if session_id not in github_sessions:
+        return None
+
+    draft = _request_project(
+        [{"role": "user", "content": feedback}],
+        GitHubProjectDraft,
+    )
+    return draft.model_dump()
+
+
 def get_github_session(session_id):
     return github_sessions.get(session_id)
 
