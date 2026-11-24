@@ -120,7 +120,7 @@ visible to the console with console.log.
 - Each project in projects_db MUST have the keys: id (an integer), title, description,
 and likes (an integer).
 - Each rendered card MUST carry the attribute data-project-id holding that project's id.
-- Visiting http://127.0.0.1:5000/ MUST serve the page, with one card per entry in
+- Visiting http://127.0.0.1:5001/ MUST serve the page, with one card per entry in
 projects_db.
 - The rendered cards MUST keep the same classes they had in Lab 5, so that the existing
 filter in app.js keeps working with no changes to app.js.
@@ -183,7 +183,7 @@ been approved.
 - [x] Starting the server creates instance/portfolio.db, and the page shows the projects
 that were in projects_seed.json.
 - [x] Restarting the server does not duplicate any project.
-- [x] Opening http://127.0.0.1:5000/api/projects in the browser shows the projects as
+- [x] Opening http://127.0.0.1:5001/api/projects in the browser shows the projects as
 JSON.
 - [x] Upvoting changes the count, and the new count is still there after a restart.
 - [x] Adding a project whose title already exists does not create a second copy, and the
